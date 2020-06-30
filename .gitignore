@@ -1,0 +1,8 @@
+security_lab/.terraform/plugins/linux_amd64/lock.json
+security_lab/.terraform/plugins/linux_amd64/terraform-provider-aws_v2.68.0_x4
+security_lab/terraform.tfstate.backup
+security_lab/terraform.tfstate
+docker_lab/.terraform/plugins/linux_amd64/terraform-provider-aws_v2.68.0_x4
+docker_lab/.terraform/plugins/linux_amd64/lock.json
+docker_lab/terraform.tfstate
+docker_lab/terraform.tfstate.backup
