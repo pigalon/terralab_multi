@@ -53,6 +53,8 @@ resource "aws_instance" "lab_security" {
             "sudo apt-get update -yqq && sudo apt-get install -yqq ubuntu-desktop gnome-core gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal vnc4server",
             "sudo apt-get update && sudo apt-get install -yqq xrdp vagrant virtualbox virtualbox-dkms && sudo apt-get -q clean",
             "sudo systemctl restart xrdp",
+            
+            
             "sudo apt-get update && sudo apt-get install -yqq vagrant virtualbox virtualbox-dkms && sudo apt-get -q clean",
             "vagrant up --provision && vagrant halt -f",
             "vncserver -kill :1",
