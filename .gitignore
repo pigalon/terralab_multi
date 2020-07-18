@@ -18,3 +18,8 @@ multi_network_interface/.terraform/plugins/linux_amd64/lock.json
 multi_network_interface/terraform.tfstate
 multi_network_interface/terraform.tfstate.backup
 other_aws_profile/.terraform/plugins/linux_amd64/terraform-provider-aws_v2.70.0_x4
+security_lab_v2/.terraform/plugins/linux_amd64/terraform-provider-aws_v2.70.0_x4
+security_lab_v2/.terraform/plugins/linux_amd64/lock.json
+security_lab_v2/terraform.tfstate
+security_lab_v2/terraform.tfstate.backup
+security_lab_v2/.terraform.tfstate.lock.info
