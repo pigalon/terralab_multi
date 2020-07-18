@@ -1,0 +1,10 @@
+[
+   {
+     "Description": "Pfsense OVA",
+     "Format": "ova",
+     "UserBucket": {
+         "S3Bucket": "lab-security-bucket",
+         "S3Key": "Pfsense_lab.ova"
+     }
+ }
+]

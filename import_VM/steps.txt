@@ -1,0 +1,4 @@
+1 - Create S3 Bucket
+2 - Transfert .ova in S3
+3 - Ajout de srègles entre EC2 et S3
+4 - Import ova from S3 to EC2 instance
