@@ -1,12 +1,12 @@
 provider "aws" {
-    profile    = "default"
+    profile    = "ludo"
     region     = "eu-west-3"
 }
 
 resource "aws_instance" "lab_docker" {
     count = 1  
     key_name      = "pigalon"
-    ami           = "ami-0c229bfed6d47178b"
+    ami           = "ami-08c757228751c5335"
     instance_type = "t3a.xlarge"
 
     tags = {

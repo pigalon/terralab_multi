@@ -6,19 +6,13 @@ provider "aws" {
 resource "aws_instance" "test_profile" {
     count = 1  
     key_name      = "lci"
-    ami           = "ami-02c206d775a2c579c"
-    instance_type = "t2.small"
+    ami           = "ami-08c757228751c5335"
+    instance_type = "t2.micro"
 
     tags = {
-        Name  = "machine-w10"
+        Name  = "machine-test_profile"
     }
-
-    root_block_device {
-        volume_size = 20
-        volume_type = "gp2"
-        delete_on_termination = true
-    }
-
+    
     # the security group
     vpc_security_group_ids = [aws_security_group.test_profile.id]
 
@@ -40,13 +34,7 @@ resource "aws_security_group" "test_profile" {
         from_port   = 22
         to_port     = 22
         protocol    = "tcp"
-        cidr_blocks = ["82.64.103.42/32"]
-    }
-    ingress {
-        from_port   = 3389
-        to_port     = 3389
-        protocol    = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
-    }     
+    }
 }
 

@@ -13,8 +13,8 @@
             "s3:PutObject" 
           ],
           "Resource": [
-             "arn:aws:s3:::lab-security-bucket",
-             "arn:aws:s3:::lab-security-bucket/*"
+             "arn:aws:s3:::vmdepot",
+             "arn:aws:s3:::vmdepot/*"
           ]
        },
        {
