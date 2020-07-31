@@ -28,7 +28,7 @@ resource "aws_instance" "admin_infra" {
             "sudo apt update -yqq && sudo apt install -yqq git wget python3-pip unzip",
             "curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o 'awscliv2.zip' && unzip awscliv2.zip &&sudo ./aws/install",
             "sudo pip3 install ansible",
-            "sudo mkdir ~/bin",
+            "mkdir ~/bin && mkdir ~/.aws",
             "wget https://releases.hashicorp.com/terraform/0.12.24/terraform_0.12.24_linux_amd64.zip",
             "unzip terraform_0.12.24_linux_amd64.zip",
             "sudo mv terraform ~/bin",

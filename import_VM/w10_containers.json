@@ -3,7 +3,7 @@
     "Description": "w10 OVA",
     "Format": "ova",
     "UserBucket": {
-        "S3Bucket": "lab-security-bucket",
+        "S3Bucket": "vmdepot",
         "S3Key": "W10_20go.ova"
     }
   }
