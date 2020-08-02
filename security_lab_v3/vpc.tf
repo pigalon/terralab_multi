@@ -45,7 +45,7 @@ resource "aws_subnet" "wan" {
     availability_zone       = "eu-west-3a"
 		map_public_ip_on_launch = "true"
 	  #associate_with_private_ip = "172.16.10.10"
-    depends_on = ["aws_internet_gateway.lab-gw"]
+    depends_on = [aws_internet_gateway.lab-gw]
 
     tags = {
         Name = "wan_sub"
@@ -57,7 +57,7 @@ resource "aws_subnet" "lan" {
     cidr_block              = "172.16.11.0/24"
     availability_zone       = "eu-west-3a"
 		map_public_ip_on_launch = "true"
-		depends_on = ["aws_internet_gateway.lab-gw"]
+		depends_on = [aws_internet_gateway.lab-gw]
 
     tags = {
         Name = "lan_sub"
