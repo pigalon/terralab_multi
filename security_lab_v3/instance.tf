@@ -105,7 +105,7 @@ resource "aws_eip" "pfsense" {
     vpc                       = true
     network_interface         = aws_network_interface.wan_pfsense.id
     associate_with_private_ip = "172.16.10.10"
-    depends_on                = ["aws_internet_gateway.lab-gw"]
+    depends_on                = [aws_internet_gateway.lab-gw.id]
 }
 
 resource "aws_network_interface" "wan_pfsense" {
