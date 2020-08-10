@@ -7,6 +7,7 @@ resource "aws_instance" "WinServ2016" {
     key_name      = "lci"
     ami           = "ami-035886e9921128d1a"
     instance_type = "t2.micro"
+    private_ips   = ["172.16.10.12"]
 
     connection {
         type        = "ssh"
@@ -30,6 +31,7 @@ resource "aws_instance" "kali" {
     key_name      = "lci"
     ami           = "ami-0e2cff13c93b60699"
     instance_type = "t2.micro"
+    private_ips   = ["172.16.10.11"]
 
     connection {
         type        = "ssh"
@@ -64,13 +66,11 @@ resource "aws_instance" "pfsense" {
     network_interface {
         network_interface_id = aws_network_interface.wan_pfsense.id
 				device_index         = 0
-				#private_ips 			   = ["172.16.10.10"]
     }
 
     network_interface {
         network_interface_id = aws_network_interface.lan_pfsense.id
         device_index         = 1
-				#private_ips 				 = ["172.16.11.10"]
     }
 
     tags = {
@@ -83,11 +83,13 @@ resource "aws_instance" "win10" {
 	key_name      = "lci"
 	ami           = "ami-02d1ea91b00dcb5e0"
 	instance_type = "t2.micro"
+    private_ips   = ["172.16.11.11"]
 
 	connection {
 			type        = "ssh"
 			user        = "ubuntu"
 			private_key = file("~/.ssh/lci")
+            
 	}
 
 	# the VPC subnet
@@ -100,6 +102,28 @@ resource "aws_instance" "win10" {
 			Name  = "machine_win10_lan"
 	}
 }
+
+resource "aws_eip" "winserver2016" {
+    vpc                       = true
+    network_interface         = aws_network_interface.wan_pfsense.id
+    associate_with_private_ip = "172.16.10.12"
+    depends_on                = [aws_internet_gateway.lab-gw]
+}
+
+resource "aws_eip" "kali" {
+    vpc                       = true
+    network_interface         = aws_network_interface.wan_pfsense.id
+    associate_with_private_ip = "172.16.10.11"
+    depends_on                = [aws_internet_gateway.lab-gw]
+}
+
+resource "aws_eip" "win10" {
+    vpc                       = true
+    network_interface         = aws_network_interface.wan_pfsense.id
+    associate_with_private_ip = "172.16.11.11"
+    depends_on                = [aws_internet_gateway.lab-gw]
+}
+
 
 resource "aws_eip" "pfsense" {
     vpc                       = true
