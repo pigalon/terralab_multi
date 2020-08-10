@@ -62,7 +62,6 @@ resource "aws_instance" "kali" {
 
 resource "aws_network_interface" "kali" {
     subnet_id       = aws_subnet.wan.id
-    private_ips   = ["172.16.10.11"]
     security_groups = [aws_security_group.wan.id]
 
     attachment {
@@ -124,7 +123,6 @@ resource "aws_instance" "win10" {
 	key_name      = "lci"
 	ami           = "ami-02d1ea91b00dcb5e0"
 	instance_type = "t2.micro"
-    private_ips   = ["172.16.11.11"]
 
 	connection {
 			type        = "ssh"
