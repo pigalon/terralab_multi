@@ -3,11 +3,10 @@ provider "aws" {
     region     = "eu-west-3"
 }
 
-resource "aws_instance" "WinServ2016" {
+resource "aws_instance" "winserver2016" {
     key_name      = "lci"
     ami           = "ami-035886e9921128d1a"
     instance_type = "t2.micro"
-    private_ips   = ["172.16.10.12"]
 
     connection {
         type        = "ssh"
@@ -16,14 +15,24 @@ resource "aws_instance" "WinServ2016" {
     }
 
   # the VPC subnet
-  subnet_id = aws_subnet.wan.id
+  #subnet_id = aws_subnet.wan.id
 
   # the security group
-  vpc_security_group_ids = [aws_security_group.wan.id]
-
+  #vpc_security_group_ids = [aws_security_group.wan.id]
 
     tags = {
         Name  = "machine_formateur"
+    }
+}
+
+resource "aws_network_interface" "winserver2016" {
+    subnet_id       = aws_subnet.wan.id
+    private_ips   = ["172.16.10.12"]
+    security_groups = [aws_security_group.wan.id]
+
+    attachment {
+        instance     = aws_instance.winserver2016.id
+        device_index = 1
     }
 }
 
@@ -40,16 +49,28 @@ resource "aws_instance" "kali" {
     }
 
   # the VPC subnet
-  subnet_id = aws_subnet.wan.id
+#  subnet_id = aws_subnet.wan.id
 
   # the security group
-  vpc_security_group_ids = [aws_security_group.wan.id]
+#  vpc_security_group_ids = [aws_security_group.wan.id]
 
 
     tags = {
         Name  = "machine_kali"
     }
 }
+
+resource "aws_network_interface" "kali" {
+    subnet_id       = aws_subnet.wan.id
+    private_ips   = ["172.16.10.11"]
+    security_groups = [aws_security_group.wan.id]
+
+    attachment {
+        instance     = aws_instance.kali.id
+        device_index = 1
+    }
+}
+
 
 
 resource "aws_instance" "pfsense" {
@@ -78,60 +99,6 @@ resource "aws_instance" "pfsense" {
     }
 }
 
-
-resource "aws_instance" "win10" {
-	key_name      = "lci"
-	ami           = "ami-02d1ea91b00dcb5e0"
-	instance_type = "t2.micro"
-    private_ips   = ["172.16.11.11"]
-
-	connection {
-			type        = "ssh"
-			user        = "ubuntu"
-			private_key = file("~/.ssh/lci")
-            
-	}
-
-	# the VPC subnet
-  subnet_id = aws_subnet.lan.id
-
-  # the security group
-  vpc_security_group_ids = [aws_security_group.lan.id]
-
-	tags = {
-			Name  = "machine_win10_lan"
-	}
-}
-
-resource "aws_eip" "winserver2016" {
-    vpc                       = true
-    network_interface         = aws_network_interface.wan_pfsense.id
-    associate_with_private_ip = "172.16.10.12"
-    depends_on                = [aws_internet_gateway.lab-gw]
-}
-
-resource "aws_eip" "kali" {
-    vpc                       = true
-    network_interface         = aws_network_interface.wan_pfsense.id
-    associate_with_private_ip = "172.16.10.11"
-    depends_on                = [aws_internet_gateway.lab-gw]
-}
-
-resource "aws_eip" "win10" {
-    vpc                       = true
-    network_interface         = aws_network_interface.wan_pfsense.id
-    associate_with_private_ip = "172.16.11.11"
-    depends_on                = [aws_internet_gateway.lab-gw]
-}
-
-
-resource "aws_eip" "pfsense" {
-    vpc                       = true
-    network_interface         = aws_network_interface.wan_pfsense.id
-    associate_with_private_ip = "172.16.10.10"
-    depends_on                = [aws_internet_gateway.lab-gw]
-}
-
 resource "aws_network_interface" "wan_pfsense" {
     subnet_id       = aws_subnet.wan.id
     security_groups = [aws_security_group.wan.id]
@@ -151,6 +118,74 @@ resource "aws_network_interface" "lan_pfsense" {
 			Name = "default"
 	}
 }
+
+
+resource "aws_instance" "win10" {
+	key_name      = "lci"
+	ami           = "ami-02d1ea91b00dcb5e0"
+	instance_type = "t2.micro"
+    private_ips   = ["172.16.11.11"]
+
+	connection {
+			type        = "ssh"
+			user        = "ubuntu"
+			private_key = file("~/.ssh/lci")
+            
+	}
+
+	# the VPC subnet
+  #subnet_id = aws_subnet.lan.id
+
+  # the security group
+  #vpc_security_group_ids = [aws_security_group.lan.id]
+
+	tags = {
+			Name  = "machine_win10_lan"
+	}
+}
+
+resource "aws_network_interface" "win10" {
+    subnet_id       = aws_subnet.wan.id
+    private_ips   = ["172.16.11.11"]
+    security_groups = [aws_security_group.lan.id]
+
+    attachment {
+        instance     = aws_instance.win10.id
+        device_index = 1
+    }
+}
+
+
+resource "aws_eip" "winserver2016" {
+    vpc                       = true
+    network_interface         = aws_network_interface.winserver2016.id
+    associate_with_private_ip = "172.16.10.12"
+    depends_on                = [aws_internet_gateway.lab-gw]
+}
+
+resource "aws_eip" "kali" {
+    vpc                       = true
+    network_interface         = aws_network_interface.kali.id
+    associate_with_private_ip = "172.16.10.11"
+    depends_on                = [aws_internet_gateway.lab-gw]
+}
+
+resource "aws_eip" "win10" {
+    vpc                       = true
+    network_interface         = aws_network_interface.win10.id
+    associate_with_private_ip = "172.16.11.11"
+    depends_on                = [aws_internet_gateway.lab-gw]
+}
+
+
+resource "aws_eip" "pfsense" {
+    vpc                       = true
+    network_interface         = aws_network_interface.wan_pfsense.id
+    associate_with_private_ip = "172.16.10.10"
+    depends_on                = [aws_internet_gateway.lab-gw]
+}
+
+
 
 
 
