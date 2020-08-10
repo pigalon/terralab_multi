@@ -15,10 +15,10 @@ resource "aws_instance" "winserver2016" {
     }
 
   # the VPC subnet
-  #subnet_id = aws_subnet.wan.id
+  subnet_id = aws_subnet.wan.id
 
   # the security group
-  #vpc_security_group_ids = [aws_security_group.wan.id]
+  vpc_security_group_ids = [aws_security_group.wan.id]
 
     tags = {
         Name  = "machine_formateur"
@@ -48,10 +48,10 @@ resource "aws_instance" "kali" {
     }
 
   # the VPC subnet
-#  subnet_id = aws_subnet.wan.id
+  subnet_id = aws_subnet.wan.id
 
   # the security group
-#  vpc_security_group_ids = [aws_security_group.wan.id]
+  vpc_security_group_ids = [aws_security_group.wan.id]
 
 
     tags = {
@@ -132,10 +132,10 @@ resource "aws_instance" "win10" {
 	}
 
 	# the VPC subnet
-  #subnet_id = aws_subnet.lan.id
+  subnet_id = aws_subnet.lan.id
 
   # the security group
-  #vpc_security_group_ids = [aws_security_group.lan.id]
+  vpc_security_group_ids = [aws_security_group.lan.id]
 
 	tags = {
 			Name  = "machine_win10_lan"
