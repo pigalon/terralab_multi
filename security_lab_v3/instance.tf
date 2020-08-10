@@ -143,7 +143,7 @@ resource "aws_instance" "win10" {
 }
 
 resource "aws_network_interface" "win10" {
-    subnet_id       = aws_subnet.wan.id
+    subnet_id       = aws_subnet.lan.id
     private_ips   = ["172.16.11.11"]
     security_groups = [aws_security_group.lan.id]
 
