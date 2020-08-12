@@ -10,11 +10,11 @@ resource "aws_instance" "moodle" {
 
 
   connection {
-    type        = "ssh"
-    user        = "ubuntu"
-    private_key = file("~/.ssh/lci")
-    host        = self.public_ip
-  }
+        type        = "ssh"
+        user        = "ubuntu"
+        private_key = file("~/.ssh/lci")
+        host        = self.public_ip
+    }
 
   # the security group
   vpc_security_group_ids = [aws_security_group.moodle.id]
@@ -32,6 +32,11 @@ resource "aws_instance" "moodle" {
         "sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose",
         "curl -sSL https://raw.githubusercontent.com/bitnami/bitnami-docker-moodle/master/docker-compose.yml > docker-compose.yml"
       ]
+    connection {
+        type        = "ssh"
+        user        = "ubuntu"
+        private_key = file("~/.ssh/lci")
+        }  
     }
   
 }
