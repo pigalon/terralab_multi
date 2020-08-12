@@ -17,7 +17,7 @@ resource "aws_instance" "moodle" {
   }
 
   # the security group
-  vpc_security_group_ids = [aws_security_group.lecopain.id]
+  vpc_security_group_ids = [aws_security_group.moodle.id]
 
   tags = {
     Name  = "Moodle"
@@ -34,15 +34,10 @@ resource "aws_instance" "moodle" {
       ]
     }
   
-  provisioner "file" {
-      source      = "~/dev/infra/keys_cert/lecopain/"
-      destination = "/usr/share/certs/nginx"
-  }
-  
 }
 
-resource "aws_security_group" "lecopain" {
-  name        = "lecopain_security-gp"
+resource "aws_security_group" "moodle" {
+  name        = "moodle_security-gp"
   description = "security group that allows ssh and all egress traffic"
   
   egress {
@@ -56,14 +51,7 @@ resource "aws_security_group" "lecopain" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["82.64.103.42/32"]
-  }
-
-  ingress {
-    from_port   = 5432
-    to_port     = 5432
-    protocol    = "tcp"
-    cidr_blocks = ["82.64.103.42/32"]
+    cidr_blocks = ["0.0.0.0/32"]
   }
 
   ingress {
@@ -72,12 +60,30 @@ resource "aws_security_group" "lecopain" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+   ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+   ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+   ingress {
+    from_port   = 8443
+    to_port     = 8443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
 
-resource "aws_eip" "lecopain_ip" {
+resource "aws_eip" "moodle" {
   vpc = true
-  instance = aws_instance.lecopain.id
+  instance = aws_instance.moodle.id
     tags = {
-      Name  = "lecopain-ip"
+      Name  = "moodle-ip"
   }
 }
