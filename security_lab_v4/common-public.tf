@@ -102,7 +102,7 @@ resource "aws_default_route_table" "nat-route-lab-1" {
     }
 
   depends_on = [
-    aws_nat_gateway.sub-public-lab-1,
+    aws_subnet.sub-public-lab-1,
     aws_nat_gateway.gw-nat-lab-1
   ]
 
