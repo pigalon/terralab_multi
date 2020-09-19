@@ -78,7 +78,7 @@ resource "aws_security_group" "private-wan" {
 resource "aws_security_group" "private-lan" {
 	name        = "lan_security-gp"
 	description = "security group that allows ssh and all egress traffic"
-	vpc_id      = aws_vpc.lab.id
+	vpc_id      = aws_vpc.lab-1.id
 	
 	egress {
 		from_port   = 0
