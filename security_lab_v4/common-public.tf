@@ -17,7 +17,7 @@ resource "aws_route_table" "internet-route-lab-1" {
 
   route {
         cidr_block = "0.0.0.0/0"
-        gateway_id = aws_internet_gateway.lab-gw.id
+        gateway_id = aws_internet_gateway.gw-internet-lab-1.id
     }
 
   tags = {
