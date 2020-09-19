@@ -93,9 +93,11 @@ resource "aws_nat_gateway" "gw-nat-lab-1" {
 ############################################################################
 # ROUTE TABLE FOR NAT GATEWAY
 ############################################################################
-resource "aws_default_route_table" "nat-route-lab-1" {
-  default_route_table_id = aws_vpc.lab.default_route_table_id
+resource "aws_route_table" "nat-route-lab-1" {
 
+  vpc_id = aws_vpc.lab-1.id
+
+  
   route {
         cidr_block = "0.0.0.0/0"
         gateway_id = aws_nat_gateway.gw-nat-lab-1.id
