@@ -64,10 +64,21 @@ resource "aws_route_table_association" "internet-Association-lab-1" {
 
 
 ############################################################################
+# ELASTIC IP FOR NAT GATEWAY
+############################################################################
+resource "aws_eip" "nat-GW-EIP-1" {
+  depends_on = [
+    aws_route_table_association.internet-Association-lab-1
+  ]
+  vpc = true
+}
+
+
+############################################################################
 # NAT GATEWAY - NAT GW N°1 (can be shared for all private subnet for the lab)
 ############################################################################
 resource "aws_nat_gateway" "gw-nat-lab-1" {
-  allocation_id = aws_eip.nat.id
+  allocation_id = aws_eip.nat-GW-EIP-1.id
   subnet_id     = aws_subnet.sub-public-lab-1.id
 
   depends_on = [
