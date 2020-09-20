@@ -51,7 +51,7 @@ resource "aws_route_table_association" "internet-Association-lab-1" {
 
   depends_on = [
     aws_vpc.lab-1,
-    aws_subnet.sub-pub-lab-1-1,
+    aws_subnet.sub-pub-lab-1,
     aws_route_table.internet-route-lab-1
   ]
 

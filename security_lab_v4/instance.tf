@@ -119,39 +119,39 @@
 # }
 
 
-resource "aws_instance" "win10" {
-	key_name      = "lci"
-	ami           = "ami-02d1ea91b00dcb5e0"
-	instance_type = "t2.micro"
+# resource "aws_instance" "win10" {
+# 	key_name      = "lci"
+# 	ami           = "ami-02d1ea91b00dcb5e0"
+# 	instance_type = "t2.micro"
 
-	connection {
-			type        = "ssh"
-			user        = "ubuntu"
-			private_key = file("~/.ssh/lci")
+# 	connection {
+# 			type        = "ssh"
+# 			user        = "ubuntu"
+# 			private_key = file("~/.ssh/lci")
             
-	}
+# 	}
 
-	# the VPC subnet
-  subnet_id = aws_subnet.lan.id
+# 	# the VPC subnet
+#   subnet_id = aws_subnet.lan.id
 
-  # the security group
-  vpc_security_group_ids = [aws_security_group.lan.id]
+#   # the security group
+#   vpc_security_group_ids = [aws_security_group.lan.id]
 
-	tags = {
-			Name  = "machine_win10_lan"
-	}
-}
+# 	tags = {
+# 			Name  = "machine_win10_lan"
+# 	}
+# }
 
-resource "aws_network_interface" "win10" {
-    subnet_id       = aws_subnet.lan.id
-    private_ips   = ["172.16.11.11"]
-    security_groups = [aws_security_group.lan.id]
+# resource "aws_network_interface" "win10" {
+#     subnet_id       = aws_subnet.lan.id
+#     private_ips   = ["172.16.11.11"]
+#     security_groups = [aws_security_group.lan.id]
 
-    attachment {
-        instance     = aws_instance.win10.id
-        device_index = 1
-    }
-}
+#     attachment {
+#         instance     = aws_instance.win10.id
+#         device_index = 1
+#     }
+# }
 
 
 # resource "aws_eip" "winserver2016" {
