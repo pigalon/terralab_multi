@@ -29,9 +29,9 @@ resource "aws_route_table" "internet-route-lab-1" {
 ############################################################################
 # PUBLIC SUBNET
 ############################################################################
-resource "aws_subnet" "sub-public-lab-1" {
+resource "aws_subnet" "sub-pub-lab-1" {
 	vpc_id                  = aws_vpc.lab-1.id
-	cidr_block              = "172.1.11.0/24"
+	cidr_block              = "172.1.11.0/32"
 	availability_zone       = "eu-west-3a"
 	map_public_ip_on_launch = "true"
 	depends_on = [
@@ -51,12 +51,12 @@ resource "aws_route_table_association" "internet-Association-lab-1" {
 
   depends_on = [
     aws_vpc.lab-1,
-    aws_subnet.sub-public-lab-1,
+    aws_subnet.sub-pub-lab-1-1,
     aws_route_table.internet-route-lab-1
   ]
 
 # Public Subnet ID
-  subnet_id      = aws_subnet.sub-public-lab-1.id
+  subnet_id      = aws_subnet.sub-pub-lab-1.id
 
 #  Route Table ID
   route_table_id = aws_route_table.internet-route-lab-1.id
@@ -79,10 +79,10 @@ resource "aws_eip" "nat-GW-EIP-1" {
 ############################################################################
 resource "aws_nat_gateway" "gw-nat-lab-1" {
   allocation_id = aws_eip.nat-GW-EIP-1.id
-  subnet_id     = aws_subnet.sub-public-lab-1.id
+  subnet_id     = aws_subnet.sub-pub-lab-1.id
 
   depends_on = [
-    aws_subnet.sub-public-lab-1
+    aws_subnet.sub-pub-lab-1
   ]
 
   tags = {
@@ -104,7 +104,7 @@ resource "aws_route_table" "nat-route-lab-1" {
     }
 
   depends_on = [
-    aws_subnet.sub-public-lab-1,
+    aws_subnet.sub-pub-lab-1,
     aws_nat_gateway.gw-nat-lab-1
   ]
 

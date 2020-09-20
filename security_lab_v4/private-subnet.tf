@@ -2,7 +2,7 @@
 ############################################################################
 # PRIVATE SUBNET - WAN
 ############################################################################
-resource "aws_subnet" "lab-1-wan-1" {
+resource "aws_subnet" "priv-lab-1-wan-1" {
 	vpc_id                  = aws_vpc.lab-1.id
 	cidr_block              = "10.51.10.0/32"
 	availability_zone       = "eu-west-3a"
@@ -12,7 +12,7 @@ resource "aws_subnet" "lab-1-wan-1" {
 	]
 
 	tags = {
-		Name = "wan_sub-1"
+		Name = "priv-sub-lab-1-wan-1"
 	}
 }
 
@@ -20,7 +20,7 @@ resource "aws_subnet" "lab-1-wan-1" {
 # PRIVATE SUBNET - LAN
 ############################################################################
 
-resource "aws_subnet" "lab-1-lan-1" {
+resource "aws_subnet" "priv-lab-1-lan-1" {
 	vpc_id                  = aws_vpc.lab-1.id
 	cidr_block              = "192.168.11.0/32"
 	availability_zone       = "eu-west-3a"
@@ -30,6 +30,6 @@ resource "aws_subnet" "lab-1-lan-1" {
 	]
 
 	tags = {
-			Name = "lan_sub-1"
+			Name = "priv-sub-lab-1-lan-1"
 	}
 }

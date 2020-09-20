@@ -60,3 +60,33 @@ resource "aws_instance" "public-lab-1" {
         }
     }
 }
+
+resource "aws_network_interface" "public-ec2-lab-1" {
+    subnet_id       = aws_subnet.sub-pub-lab-1.id
+    security_groups = [aws_security_group.wan.id]
+    private_ips      = ["172.1.11.100"]
+
+    tags = {
+        Name = "inet-public-ec2-lab-1-wan-1"
+    }
+}
+
+resource "aws_network_interface" "public-ec2-wan-lab-1" {
+    subnet_id       = aws_subnet.priv-lab-1-wan-1.id
+    security_groups = [aws_security_group.wan.id]
+    private_ips      = ["10.51.10.100"]
+
+    tags = {
+        Name = "inet-public-ec2-wan-lab-1"
+    }
+}
+
+resource "aws_network_interface" "public-ec2-lan-lab-1" {
+	subnet_id       = aws_subnet.priv-lab-1-lan-1.id
+	security_groups = [aws_security_group.lan.id]
+	private_ips      = ["192.168.11.100"]
+
+	tags = {
+			Name = "inet-public-ec2-lab-1-lan-1"
+	}
+}
