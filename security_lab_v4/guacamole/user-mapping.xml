@@ -1,0 +1,36 @@
+<user-mapping>
+    <authorize username="guacadmin" password="5cbd438413e8e3ca0e14e200fde621a9" encoding="md5">
+        <connection name="Ubuntu RDP">
+            <protocol>rdp</protocol>
+            <param name="username">ubuntu</param>
+            <param name="hostname">172.17.0.1</param>
+            <param name="color-depth">16</param>
+            <param name="disable-audio">true</param>
+            <!--<param name="security">tls</param>-->
+            <param name="ignore-cert">true</param>
+            <param name="enable-drive">true</param>
+            <param name="drive-path">/config</param>
+        </connection>
+        <connection name="Linux SSH">
+            <protocol>ssh</protocol>
+            <param name="hostname">172.17.0.1</param>
+            <param name="username">ubuntu</param>
+            <param name="port">22</param>
+            <param name="font-size">12</param>
+            <param name="font-name">Terminus</param>
+            <param name="enable-sftp">true</param>
+        </connection>
+        <connection name="Windows rdp">
+            <protocol>rdp</protocol>
+            <param name="hostname">35.181.50.63</param>
+            <param name="port">3389</param>
+            <param name="username">stagiaire</param>
+        </connection>
+        <connection name="Kali Rdp">
+            <protocol>rdp</protocol>
+            <param name="hostname">15.237.43.45</param>
+            <param name="port">3389</param>
+            <param name="username">stagiaire</param>
+        </connection>
+    </authorize>
+</user-mapping>
