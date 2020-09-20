@@ -25,13 +25,13 @@ resource "aws_vpc" "lan-lab-1" {
 }
 
 resource "aws_vpc_peering_connection" "pub-wan" {
-  peer_vpc_id   = aws_vpc.-wan-lab-1.id
+  peer_vpc_id   = aws_vpc.wan-lab-1.id
   vpc_id        = aws_vpc.lab-1.id
   peer_region   = "us-east-1"
 }
 
 resource "aws_vpc_peering_connection" "pub-lan" {
-  peer_vpc_id   = aws_vpc.-lan-lab-1.id
+  peer_vpc_id   = aws_vpc.lan-lab-1.id
   vpc_id        = aws_vpc.lab-1.id
   peer_region   = "us-east-1"
 }
