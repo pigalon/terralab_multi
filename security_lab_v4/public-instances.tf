@@ -20,7 +20,23 @@ resource "aws_instance" "public-lab-1" {
     host        = self.public_ip
     }
 
+  ######### NETWORK INTERFACES
+	network_interface {
+    network_interface_id = aws_network_interface.public-ec2-lab-1-pub-1.id
+		device_index         = 0
+  }
 
+	network_interface {
+    network_interface_id = aws_network_interface.public-ec2-lab-1-wan-1.id
+		device_index         = 1
+  }
+
+	network_interface {
+    network_interface_id = aws_network_interface.public-ec2-lab-1-lan-1.id
+		device_index         = 2
+  }
+
+	######### PROVISIONNING
   provisioner "remote-exec" {
     inline = [
             "sudo apt update -yqq && sudo apt install -yqq docker.io git wget python3-pip unzip",
@@ -60,27 +76,27 @@ resource "aws_instance" "public-lab-1" {
   }
 }
 
-resource "aws_network_interface" "public-ec2-lan-lab-1" {
+resource "aws_network_interface" "public-ec2-lab-1-pub-1" {
 	subnet_id       = aws_subnet.sub-pub-lab-1.id
 	security_groups = [aws_security_group.public-lab.id]
 	private_ips      = ["172.1.11.100"]
 
 	tags = {
-		Name = "inet-public-ec2-lab-1-wan-1"
+		Name = "inet-public-ec2-lab-1-pub-1"
   }
 }
 
-resource "aws_network_interface" "public-ec2-wan-lab-1" {
+resource "aws_network_interface" "public-ec2-lab-1-wan-1" {
 	subnet_id       = aws_subnet.priv-lab-1-wan-1.id
 	security_groups = [aws_security_group.private-wan.id]
 	private_ips      = ["10.51.10.100"]
 
 	tags = {
-		Name = "inet-public-ec2-wan-lab-1"
+		Name = "inet-public-ec2-lab-1-wan-1"
 	}
 }
 
-resource "aws_network_interface" "public-ec2-lan-lab-1" {
+resource "aws_network_interface" "public-ec2-lab-1-lan-1" {
 	subnet_id       = aws_subnet.priv-lab-1-lan-1.id
 	security_groups = [aws_security_group.private-lan.id]
 	private_ips      = ["192.168.11.100"]
