@@ -2,7 +2,7 @@
 # PUBLIC SUB NET - LAB  
 ############################################################################
 resource "aws_security_group" "public-lab" {
-	name        = "wan_security-gp"
+	name        = "lab-security-gp-public"
 	description = "security group that allows ssh and all egress traffic"
 	vpc_id      = aws_vpc.lab-1.id
 
@@ -25,7 +25,7 @@ resource "aws_security_group" "public-lab" {
 		cidr_blocks = ["0.0.0.0/0"]
 	}
 	tags = {
-		Name = "lab-1-security-gp-public"
+		Name = "lab-security-gp-public"
 	}
 }
 
@@ -34,7 +34,7 @@ resource "aws_security_group" "public-lab" {
 # PRIVATE SUB NET - LAB - TP-WAN
 ############################################################################
 resource "aws_security_group" "private-wan" {
-	name        = "wan_security-gp"
+	name        = "lab-security-gp-private-wan"
 	description = "security group that allows ssh and all egress traffic"
 	vpc_id      = aws_vpc.lab-1.id
 
@@ -68,7 +68,7 @@ resource "aws_security_group" "private-wan" {
 		cidr_blocks = ["0.0.0.0/0"]
 	}
 	tags = {
-		Name = "lab-1-security-gp-private-wan"
+		Name = "lab-security-gp-private-wan"
 	}
 }
 
@@ -76,7 +76,7 @@ resource "aws_security_group" "private-wan" {
 # PRIVATE SUB NET - LAB - TP-LAN
 ############################################################################
 resource "aws_security_group" "private-lan" {
-	name        = "lan_security-gp"
+	name        = "lab-security-gp-private-lan"
 	description = "security group that allows ssh and all egress traffic"
 	vpc_id      = aws_vpc.lab-1.id
 	
@@ -106,6 +106,6 @@ resource "aws_security_group" "private-lan" {
 		cidr_blocks = ["0.0.0.0/0"]
 	}
 	tags = {
-		Name = "lab-1-security-gp-private-lan"
+		Name = "lab-security-gp-private-lan"
 	}
 }
