@@ -31,7 +31,7 @@ resource "aws_route_table" "internet-route-lab-1" {
 ############################################################################
 resource "aws_subnet" "sub-pub-lab-1" {
 	vpc_id                  = aws_vpc.lab-1.id
-	cidr_block              = "172.1.11.0/32"
+	cidr_block              = "172.1.11.0/24"
 	availability_zone       = "eu-west-3a"
 	map_public_ip_on_launch = "true"
 	depends_on = [
