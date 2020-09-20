@@ -36,7 +36,7 @@ resource "aws_security_group" "public-lab" {
 resource "aws_security_group" "private-wan" {
 	name        = "lab-security-gp-private-wan"
 	description = "security group that allows ssh and all egress traffic"
-	vpc_id      = aws_vpc.lab-1.id
+	vpc_id      = aws_vpc.wan-lab-1.id
 
 	depends_on = [
 		aws_vpc.lab-1
@@ -78,7 +78,7 @@ resource "aws_security_group" "private-wan" {
 resource "aws_security_group" "private-lan" {
 	name        = "lab-security-gp-private-lan"
 	description = "security group that allows ssh and all egress traffic"
-	vpc_id      = aws_vpc.lab-1.id
+	vpc_id      = aws_vpc.lan-lab-1.id
 	
 	egress {
 		from_port   = 0
