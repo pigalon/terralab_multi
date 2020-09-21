@@ -11,7 +11,7 @@ resource "aws_instance" "public-lab-1" {
         Name  = "ec2-public-lab-1-M1"
     }
 
-    subnet_id       = aws_subnet.sub-pub-lab-1.id
+    # subnet_id       = aws_subnet.sub-pub-lab-1.id
 
     connection {
     type        = "ssh"
