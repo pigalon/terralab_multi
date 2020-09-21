@@ -11,7 +11,7 @@ resource "aws_vpc" "lab-1" {
 }
 
 resource "aws_vpc" "wan-lab-1" {
-	cidr_block           = "10.1.0.0/16"
+	cidr_block           = "10.51.0.0/16"
 	tags = {
 		Name = "wan-lab-1"
 	}
